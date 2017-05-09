@@ -223,19 +223,29 @@ names(jn1)[7] <- "km"
 jn3 <- melt(jn1, id=c('sentiment'))
 jn3
 
-
+setwd("D:/dv")
 ggplot(jn3, aes(x=sentiment, y=value)) + 
   geom_bar(aes(fill=variable), stat="identity", position="dodge") + 
   theme(axis.text.x = element_text(angle=45, hjust=1)) 
 
-ggplot(jn3, aes(x=sentiment, y=value)) + 
-  geom_bar(aes(fill=variable), stat="identity", position="dodge") + 
-  theme(axis.text.x = element_text(angle=45, hjust=1)) + facet_grid(sentiment ~ .)
+dev.copy(png, file = "members.png", width=800)  
+
+dev.off()
+# 
+# ggplot(jn3, aes(x=sentiment, y=value)) + 
+#   geom_bar(aes(fill=variable), stat="identity", position="dodge") + 
+#   theme(axis.text.x = element_text(angle=45, hjust=1)) + facet_grid(sentiment ~ .)
+
+
 
 
 ggplot(jn3, aes(x=sentiment, y=value)) + 
   geom_bar(aes(fill=variable), stat="identity", position="dodge") + 
-  theme(axis.text.x = element_text(angle=45, hjust=1)) + facet_grid( . ~ variable)
+  theme(axis.text.x = element_text(angle=45, hjust=1)) + facet_grid( variable ~ .)
+
+dev.copy(png, file = "members_facet.png", width=800)  
+
+dev.off()
 
 
 #kb
@@ -418,12 +428,23 @@ ggplot(stat, aes(x=who, y=tweet_count)) +
   geom_bar(aes(fill=who), stat="identity", position="dodge") + 
   theme(axis.text.x = element_text(angle=45, hjust=1)) 
 
-ggplot(stat, aes(x=words_incl_perc, y=tweet_count)) + 
-  geom_bar(aes(fill=who), stat="identity", position="dodge") + 
-  theme(axis.text.x = element_text(angle=45, hjust=1)) 
+dev.copy(png, file = "tweet_count.png", width=800)  
+
+dev.off()
+
+
+# ggplot(stat, aes(x=words_incl_perc, y=tweet_count)) + 
+#   geom_bar(aes(fill=who), stat="identity", position="dodge") + 
+#   theme(axis.text.x = element_text(angle=45, hjust=1)) 
+
+
 
 ggplot(stat, aes(x=who, y=words_included)) + 
   geom_bar(aes(fill=who), stat="identity", position="dodge") + 
   theme(axis.text.x = element_text(angle=45, hjust=1)) 
+
+dev.copy(png, file = "words_included.png", width=800)  
+
+dev.off()
 
 
