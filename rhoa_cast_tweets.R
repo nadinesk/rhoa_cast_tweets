@@ -11,7 +11,7 @@ library(reshape2)
 library(scales)
 
 
-setup_twitter_oauth("YzDrMmjsdPajxmuMXGrfZz2zB", "fDK3UJOuUnp1OF8Dd91RSsFcKeB1tQ53W9FKoqxu7mKcY0efQh", "499964206-UwcPxJM1hr2iQ0aTAgUev8hdOptejKkNkBmrn2Nu", "785vZOkgTGramES0HsjJ7TBFibUhjs274KL5XxdlPjnfC")
+
 
 kb <- userTimeline("kandi", n= 3200)
 
@@ -217,7 +217,11 @@ jn1 <- jn[c(1,3,6,9,12,15,18)]
 
 str(jn1)
 
-jn1
+jn1_1 <- jn1[c(2:4,6:7)]
+
+jn1_1$max <- apply(jn1_1, 1, max)
+
+jn1_1
 
 names(jn1)[2] <- "kb"
 names(jn1)[3] <- "pp"
@@ -284,6 +288,8 @@ jn5 <- jn4 %>%
 
 jn5
 
+max(jn5$value)
+
 
 ggplot(jn5, aes(x=sentiment, y=value, label=variable, fill=variable)) + 
   geom_bar( stat="identity", position=position_dodge()) + 
@@ -297,7 +303,8 @@ dev.copy(png, file = "sent_group.png", width=800)
 dev.off()
 
 jn6 <- jn5 %>%
-        filter(sentiment == 'positive')
+        filter(sentiment == 'positive') %>%
+        arrange(desc(value))
 
 
 jn6
@@ -305,9 +312,12 @@ jn6
 mean(jn6$value)
 
 jn7 <- jn5 %>%
-  filter(sentiment == 'negative')
+  filter(sentiment == 'negative')%>%
+  arrange(desc(value))
 
 mean(jn7$value)
+
+jn7
 
 #kb
 #pp
